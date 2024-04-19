@@ -1,9 +1,9 @@
 // src/models/Todo.js
 class Todo {
-  constructor(id, title, completed) {
+  constructor(id, description, done ) {
     this.id = id;
-    this.title = title;
-    this.completed = completed;
+    this.description = description;
+    this.done = done;
   }
 }
 

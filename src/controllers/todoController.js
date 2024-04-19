@@ -8,13 +8,28 @@ async function getAllTodos(ctx) {
 
 }
 
-function createTodo(ctx) {
-  const { title } = ctx.request.body;
-  const id = todos.length + 1;
-  const todo = new Todo(id, title, false);
-  todos.push(todo);
+async function createTodo(ctx) {
+  const { description } = ctx.request.body;
+  await db("todos").insert({description})
   ctx.status = 201; // Created
-  ctx.body = todo;
 }
 
-module.exports = { getAllTodos, createTodo };
+async function updateTodo(ctx) {
+  const {id} = ctx.params
+  const {description,done} = ctx.request.body
+
+  await db("todos").where({id}).update({description, done})
+
+  ctx.status = 200 // OK
+  ctx.body = {message: "Todo updated successfully"}
+}
+
+async function deleteTodo(ctx) {
+  const {id} = ctx.params
+
+  await db("todos").where({id}).del()
+
+  ctx.status = 204 //No content
+}
+
+module.exports = { getAllTodos, createTodo, updateTodo, deleteTodo };
