@@ -1,10 +1,11 @@
 // src/controllers/todoController.js
 const Todo = require('../models/Todo');
+const {db} = require('../db')
 
-let todos = [];
+async function getAllTodos(ctx) {
+  ctx.body = await db("todos");
 
-function getAllTodos(ctx) {
-  ctx.body = todos;
+
 }
 
 function createTodo(ctx) {
